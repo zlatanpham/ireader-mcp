@@ -60,6 +60,26 @@ server.addTool({
   },
 });
 
+server.addTool({
+  name: 'get_pdf',
+  description: 'Extract text content from a PDF file',
+  parameters: z.object({
+    url: z.string().describe('The URL of the PDF file to extract text from'),
+  }),
+  execute: async (args) => {
+    const response = await fetch('https://api.kome.ai/api/tools/pdf-to-text', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ url: args.url }),
+    });
+
+    const data = await response.json();
+    return (data as { text: string }).text;
+  },
+});
+
 server.addResource({
   uri: 'file:///logs/app.log',
   name: 'Application Logs',
