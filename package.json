@@ -1,0 +1,27 @@
+{
+  "name": "ireader_mcp",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "tsc",
+    "format": "prettier --write . && eslint --fix .",
+    "inspect": "pnpm run build && npx fastmcp inspect dist/index.js",
+    "test": "npx fastmcp dev src/index.ts"
+  },
+  "type": "module",
+  "main": "dist/index.js",
+  "author": "Thanh Pham",
+  "license": "MIT",
+  "dependencies": {
+    "fastmcp": "^1.21.0",
+    "zod": "^3.24.2"
+  },
+  "repository": {},
+  "devDependencies": {
+    "@types/node": "^22.13.5",
+    "eslint": "^9.21.0",
+    "eslint-plugin-perfectionist": "^4.9.0",
+    "prettier": "^3.5.2",
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.7"
+  }
+}
