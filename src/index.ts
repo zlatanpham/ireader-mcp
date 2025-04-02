@@ -42,6 +42,24 @@ server.addTool({
   },
 });
 
+server.addTool({
+  name: 'get_tweet_thread',
+  description: 'Fetch the thread of a tweet',
+  parameters: z.object({
+    tweetURL: z.string().describe('The tweet ID or URL'),
+  }),
+  execute: async (args) => {
+    const tweetIdMatch = args.tweetURL.match(/\/status\/(\d+)/);
+    const tweetId = tweetIdMatch ? tweetIdMatch[1] : args.tweetURL;
+
+    const response = await fetch(
+      `https://r.jina.ai/https://twitter-thread.com/t/${tweetId}`,
+    );
+    const data = await response.text();
+    return data;
+  },
+});
+
 server.addResource({
   uri: 'file:///logs/app.log',
   name: 'Application Logs',
