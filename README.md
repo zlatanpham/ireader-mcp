@@ -15,12 +15,13 @@ pnpm install
 
 ## Available Tools
 
-| Tool                     | Description                                         | Parameters                                       |
-| ------------------------ | --------------------------------------------------- | ------------------------------------------------ |
-| `get_webpage_markdown`   | Fetches the content of a webpage using Jina reader. | `url`: string - The URL of the webpage to fetch  |
-| `get_youtube_transcript` | Fetches the transcript of a YouTube video.          | `videoURL`: string - The YouTube video ID or URL |
-| `get_tweet_thread`       | Fetches the thread of a tweet.                      | `tweetURL`: string - The tweet URL or ID         |
-| `get_pdf`                | Extracts text content from a PDF file.              | `url`: string - The URL of the PDF file          |
+| Tool                             | Description                                                 | Parameters                                       |
+| -------------------------------- | ----------------------------------------------------------- | ------------------------------------------------ |
+| `get_webpage_markdown`           | Fetches the content of a webpage using Jina reader.         | `url`: string - The URL of the webpage to fetch  |
+| `get_youtube_transcript`         | Fetches the transcript of a YouTube video.                  | `videoURL`: string - The YouTube video ID or URL |
+| `get_tweet_thread`               | Fetches the thread of a tweet.                              | `tweetURL`: string - The tweet URL or ID         |
+| `get_pdf`                        | Extracts text content from a PDF file.                      | `url`: string - The URL of the PDF file          |
+| `get_public_google_doc_markdown` | Fetches the markdown content of a public Google Doc by URL. | `url`: string - The public Google Doc URL        |
 
 ## Running Your Server
 

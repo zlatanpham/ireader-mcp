@@ -3,7 +3,7 @@ import { z } from 'zod';
 
 const server = new FastMCP({
   name: 'ireader',
-  version: '1.0.0',
+  version: '1.0.1',
 });
 
 server.addTool({
@@ -77,6 +77,37 @@ server.addTool({
 
     const data = await response.json();
     return (data as { text: string }).text;
+  },
+});
+
+server.addTool({
+  name: 'get_public_google_doc_markdown',
+  description: 'Fetch the markdown content of a public Google Doc by URL',
+  parameters: z.object({
+    url: z.string().describe('The public Google Doc URL'),
+  }),
+  execute: async (args) => {
+    // Extract the document ID from the URL
+    const docIdMatch = args.url.match(/\/document\/d\/([a-zA-Z0-9-_]+)/);
+    if (!docIdMatch) {
+      throw new Error('Invalid Google Doc URL');
+    }
+    const docId = docIdMatch[1];
+
+    // Construct the export URL for markdown format
+    // This only works if the document's sharing setting is "Anyone with the link can view".
+    // If it requires login, this method will likely fail or redirect to a login page.
+    const exportUrl = `https://docs.google.com/document/d/${docId}/export?format=md`;
+
+    // Fetch the markdown content as a blob and convert to text
+    const response = await fetch(exportUrl);
+    if (!response.ok) {
+      throw new Error(
+        `Failed to fetch document markdown: ${response.statusText}`,
+      );
+    }
+    const markdown = await response.text();
+    return markdown;
   },
 });
 
