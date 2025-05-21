@@ -1,5 +1,5 @@
 import { expect, it } from 'vitest';
-import { extractGoogleDocId } from './validation';
+import { extractGoogleDocId } from './validation.js';
 
 it('extractGoogleDocId should extract the ID from a Google Docs URL', () => {
   const url = 'https://docs.google.com/document/d/1234567890abcdefg/edit';

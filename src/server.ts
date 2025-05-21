@@ -1,6 +1,6 @@
 import { FastMCP } from 'fastmcp';
 import { z } from 'zod';
-import { extractGoogleDocId } from './validation';
+import { extractGoogleDocId } from './validation.js';
 
 const server = new FastMCP({
   name: 'ireader',
