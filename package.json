@@ -1,7 +1,7 @@
 {
   "name": "@x-mcp/ireader",
   "private": false,
-  "version": "1.0.2",
+  "version": "1.0.0",
   "scripts": {
     "build": "tsc",
     "start": "tsx src/server.ts",

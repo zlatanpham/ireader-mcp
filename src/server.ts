@@ -5,7 +5,7 @@ import { extractGoogleDocId } from './validation.js';
 
 const server = new FastMCP({
   name: 'ireader',
-  version: '1.0.2',
+  version: '1.0.0',
 });
 
 server.addTool({
