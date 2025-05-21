@@ -18,9 +18,7 @@
   },
   "type": "module",
   "main": "dist/index.js",
-  "bin": {
-    "ireader-mcp-server": "dist/index.js"
-  },
+  "bin": "dist/index.js",
   "author": "Thanh Pham",
   "license": "MIT",
   "dependencies": {
