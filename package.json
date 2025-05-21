@@ -1,5 +1,6 @@
 {
   "name": "@x-mcp/ireader",
+  "private": false,
   "version": "1.0.1",
   "scripts": {
     "build": "tsc",
