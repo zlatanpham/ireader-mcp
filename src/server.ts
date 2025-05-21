@@ -1,5 +1,6 @@
 import { FastMCP } from 'fastmcp';
 import { z } from 'zod';
+
 import { extractGoogleDocId } from './validation.js';
 
 const server = new FastMCP({
@@ -8,48 +9,44 @@ const server = new FastMCP({
 });
 
 server.addTool({
-  name: 'get_webpage_markdown',
   description: 'Fetch the content of a url using jina reader',
-  parameters: z.object({
-    url: z.string(),
-  }),
-  execute: async (args) => {
+  execute: async args => {
     const response = await fetch(`https://r.jina.ai/${args.url}`);
     const data = await response.text();
     return data;
   },
+  name: 'get_webpage_markdown',
+  parameters: z.object({
+    url: z.string(),
+  }),
 });
 
 server.addTool({
-  name: 'get_youtube_transcript',
   description: 'Fetch the transcript of a YouTube video',
-  parameters: z.object({
-    videoURL: z.string().describe('The YouTube video ID or URL'),
-  }),
-  execute: async (args) => {
+  execute: async args => {
     const response = await fetch(
       'https://api.kome.ai/api/tools/youtube-transcripts',
       {
-        method: 'POST',
+        body: JSON.stringify({ format: true, video_id: args.videoURL }),
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ video_id: args.videoURL, format: true }),
+        method: 'POST',
       },
     );
 
     const data = await response.json();
     return (data as { transcript: string }).transcript;
   },
+  name: 'get_youtube_transcript',
+  parameters: z.object({
+    videoURL: z.string().describe('The YouTube video ID or URL'),
+  }),
 });
 
 server.addTool({
-  name: 'get_tweet_thread',
   description: 'Fetch the thread of a tweet',
-  parameters: z.object({
-    tweetURL: z.string().describe('The tweet ID or URL'),
-  }),
-  execute: async (args) => {
+  execute: async args => {
     const tweetIdMatch = args.tweetURL.match(/\/status\/(\d+)/);
     const tweetId = tweetIdMatch ? tweetIdMatch[1] : args.tweetURL;
 
@@ -59,35 +56,35 @@ server.addTool({
     const data = await response.text();
     return data;
   },
+  name: 'get_tweet_thread',
+  parameters: z.object({
+    tweetURL: z.string().describe('The tweet ID or URL'),
+  }),
 });
 
 server.addTool({
-  name: 'get_pdf',
   description: 'Extract text content from a PDF file',
-  parameters: z.object({
-    url: z.string().describe('The URL of the PDF file to extract text from'),
-  }),
-  execute: async (args) => {
+  execute: async args => {
     const response = await fetch('https://api.kome.ai/api/tools/pdf-to-text', {
-      method: 'POST',
+      body: JSON.stringify({ url: args.url }),
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ url: args.url }),
+      method: 'POST',
     });
 
     const data = await response.json();
     return (data as { text: string }).text;
   },
+  name: 'get_pdf',
+  parameters: z.object({
+    url: z.string().describe('The URL of the PDF file to extract text from'),
+  }),
 });
 
 server.addTool({
-  name: 'get_public_google_doc_markdown',
   description: 'Fetch the markdown content of a public Google Doc by URL',
-  parameters: z.object({
-    url: z.string().describe('The public Google Doc URL'),
-  }),
-  execute: async (args) => {
+  execute: async args => {
     // Extract the document ID from the URL
     const docId = extractGoogleDocId(args.url);
     if (!docId) {
@@ -109,17 +106,21 @@ server.addTool({
     const markdown = await response.text();
     return markdown;
   },
+  name: 'get_public_google_doc_markdown',
+  parameters: z.object({
+    url: z.string().describe('The public Google Doc URL'),
+  }),
 });
 
 server.addResource({
-  uri: 'file:///logs/app.log',
-  name: 'Application Logs',
-  mimeType: 'text/plain',
   async load() {
     return {
       text: 'Example log content',
     };
   },
+  mimeType: 'text/plain',
+  name: 'Application Logs',
+  uri: 'file:///logs/app.log',
 });
 
 // Start the server
@@ -134,7 +135,7 @@ async function main() {
   }
 }
 
-main().catch((error) => {
+main().catch(error => {
   console.error('Fatal error in main():', error);
   process.exit(1);
 });
