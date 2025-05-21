@@ -1,5 +1,6 @@
 import { FastMCP } from 'fastmcp';
 import { z } from 'zod';
+import { extractGoogleDocId } from './validation';
 
 const server = new FastMCP({
   name: 'ireader',
@@ -88,11 +89,10 @@ server.addTool({
   }),
   execute: async (args) => {
     // Extract the document ID from the URL
-    const docIdMatch = args.url.match(/\/document\/d\/([a-zA-Z0-9-_]+)/);
-    if (!docIdMatch) {
+    const docId = extractGoogleDocId(args.url);
+    if (!docId) {
       throw new Error('Invalid Google Doc URL');
     }
-    const docId = docIdMatch[1];
 
     // Construct the export URL for markdown format
     // This only works if the document's sharing setting is "Anyone with the link can view".
