@@ -1,7 +1,7 @@
 {
   "name": "@x-mcp/ireader",
   "private": false,
-  "version": "1.0.5",
+  "version": "1.0.6",
   "scripts": {
     "build": "tsc",
     "start": "tsx src/index.ts",
@@ -17,8 +17,10 @@
     "url": "https://github.com/zlatanpham/ireader-mcp"
   },
   "type": "module",
-  "main": "dist/index.js",
-  "bin": "./dist/index.js",
+  "main": "./dist/index.js",
+  "bin": {
+    "ireader-mcp-server": "./dist/index.js"
+  },
   "author": "Thanh Pham",
   "license": "MIT",
   "dependencies": {
