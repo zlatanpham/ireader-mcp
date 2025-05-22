@@ -23,29 +23,17 @@ pnpm install
 | `get_pdf`                        | Extracts text content from a PDF file.                      | `url`: string - The URL of the PDF file          |
 | `get_public_google_doc_markdown` | Fetches the markdown content of a public Google Doc by URL. | `url`: string - The public Google Doc URL        |
 
-## Running Your Server
+## Testing the Tools
 
-### Test with mcp-cli
-
-The fastest way to test and debug your server is with fastmcp dev:
+Run the following command to test the tools:
 
 ```bash
-pnpm test
-```
-
-This will run your server with `mcp-cli` for testing and debugging your MCP server in the terminal.
-
-### Inspect with MCP Inspector
-
-Another way is to use the official MCP Inspector to inspect your server with a Web UI:
-
-```bash
-pnpm inspect
+pnpm dev
 ```
 
 ## FAQ
 
-### How to use with Claude Desktop?
+### How to use with Claude Desktop or MCP Clients?
 
 Follow the guide https://modelcontextprotocol.io/quickstart/user and add the following configuration:
 
@@ -54,10 +42,20 @@ Follow the guide https://modelcontextprotocol.io/quickstart/user and add the fol
   "mcpServers": {
     "ireader": {
       "command": "npx",
-      "args": ["tsx", "/PATH/TO/YOUR_PROJECT/src/index.ts"],
-      "env": {
-        "YOUR_ENV_VAR": "value"
-      }
+      "args": ["-y", "@x-mcp/ireader@latest"]
+    }
+  }
+}
+```
+
+or if you want to run the server locally, add the following configuration:
+
+```json
+{
+  "mcpServers": {
+    "ireader": {
+      "command": "npx",
+      "args": ["-y", "@x-mcp/ireader@latest"]
     }
   }
 }
