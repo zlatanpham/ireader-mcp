@@ -1,9 +1,9 @@
 {
   "name": "@x-mcp/ireader",
   "private": false,
-  "version": "1.0.8",
+  "version": "1.0.9",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && chmod +x dist/index.js",
     "start": "tsx src/index.ts",
     "dev": "fastmcp dev src/index.ts",
     "lint": "prettier --check . && eslint . && tsc --noEmit",
