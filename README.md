@@ -55,7 +55,7 @@ or if you want to run the server locally, add the following configuration:
   "mcpServers": {
     "ireader": {
       "command": "npx",
-      "args": ["-y", "@x-mcp/ireader@latest"]
+      "args": ["tsx", "/PATH/TO/YOUR_PROJECT/src/index.ts"]
     }
   }
 }
